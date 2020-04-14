@@ -1,0 +1,42 @@
+name: "Test"
+on:
+  pull_request:
+  push:
+    branches-ignore:
+      - 'dependabot/*'
+  schedule:
+    - cron: '22 22 * * 5'
+
+jobs:
+  lint:
+    runs-on: 'ubuntu-latest'
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Markdown Lint
+        uses: actionshub/markdownlint@v1.0.0
+
+      - name: YAML Lint
+        uses: karancode/yamllint-github-action@master
+        with:
+          yamllint_file_or_dir: action.yaml
+
+      - name: Dockerfile Lint
+        uses: burdzwastaken/hadolint-action@1.6.0
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          HADOLINT_ACTION_DOCKERFILE_FOLDER: .
+  test:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+
+    - name: Run CI script
+      run: ./test/ci-test.sh
+
+    - name: Run action
+      uses: ./
+      with:
+        path: "./test/test_data/good_case_1"
+        file_extension: "*.yaml"
+        exclude: "skip"
