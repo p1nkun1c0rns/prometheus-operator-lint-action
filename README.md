@@ -1,0 +1,1 @@
+# prometheus-operator-lint-action
