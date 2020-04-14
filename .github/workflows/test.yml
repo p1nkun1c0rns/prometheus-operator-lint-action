@@ -19,7 +19,7 @@ jobs:
       - name: YAML Lint
         uses: karancode/yamllint-github-action@master
         with:
-          yamllint_file_or_dir: action.yaml
+          yamllint_file_or_dir: action.yml
 
       - name: Dockerfile Lint
         uses: burdzwastaken/hadolint-action@1.6.0
