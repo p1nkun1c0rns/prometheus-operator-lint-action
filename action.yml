@@ -1,0 +1,26 @@
+name: 'Prometheus Operator Lint Action'
+author: 'Richard Steinbrueck'
+description: 'Run po-lint on your yaml files'
+inputs:
+  path:
+    description: 'Path to scan for files within the directory (and nested directories)'
+    required: false
+    default: './'
+  file_extension:
+    description: ''
+    required: false
+    default: '*.yaml'
+  exclude:
+    description: 'should be a substring of the folder path you want to exclude'
+    required: false
+    default: ''
+runs:
+  using: 'docker'
+  image: 'Dockerfile'
+  args:
+    - ${{ inputs.path }}
+    - ${{ inputs.file_extension }}
+    - ${{ inputs.exclude }}
+branding:
+  icon: 'terminal'
+  color: 'red'
