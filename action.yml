@@ -1,9 +1,10 @@
+---
 name: 'Prometheus Operator Lint Action'
 author: 'Richard Steinbrueck'
 description: 'Run po-lint on your yaml files'
 inputs:
   path:
-    description: 'Path to scan for files within the directory (and nested directories)'
+    description: 'Path to files within the repo (and nested directories)'
     required: false
     default: './'
   file_extension:
