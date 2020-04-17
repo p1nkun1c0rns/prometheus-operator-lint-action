@@ -40,6 +40,15 @@ steps:
     exclude: "foobar"
 ```
 
+## Testing
+
+For testing the [bats](https://github.com/bats-core/bats-core#installation) testing framework is used.
+
+```bash
+git clone https://github.com/p1nkun1c0rns/prometheus-operator-lint-action.git
+./tests/run.bats
+```
+
 ## License
 
 The scripts and documentation in this project are released under the [MIT License](LICENSE)

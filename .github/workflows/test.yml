@@ -31,12 +31,15 @@ jobs:
     steps:
     - uses: actions/checkout@v2
 
+    - name: Install bats
+      run: sudo apt-get -y install bats > /dev/null
+
     - name: Run CI script
-      run: ./test/ci-test.sh
+      run: ./tests/run.bats
 
     - name: Run action
       uses: ./
       with:
-        path: "./test/test_data/good_case_1"
+        path: "./tests/data/good_case_1"
         file_extension: "*.yaml"
         exclude: "skip"
