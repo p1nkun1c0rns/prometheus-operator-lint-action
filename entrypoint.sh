@@ -21,7 +21,7 @@ INPUT_EXCLUDE=$3
 
 echo "Linting '${INPUT_FILES}' files in directory '${INPUT_PATH}'..."
 had_errors=0
-for file in $(find ${INPUT_PATH} -name ${INPUT_FILES}); do
+for file in $(find ${INPUT_PATH} -name "*${INPUT_FILES}"); do
   # Exclude Grafana dashboards
 
   # do not grep for null ;)
@@ -33,6 +33,7 @@ for file in $(find ${INPUT_PATH} -name ${INPUT_FILES}); do
     fi
   fi
 
+  echo "lint ${file}"
   po-lint "${file}"
   retval=$?
   if [ $retval -ne 0 ]; then
