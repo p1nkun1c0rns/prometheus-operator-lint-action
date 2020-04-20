@@ -10,7 +10,7 @@ inputs:
   file_extension:
     description: ''
     required: false
-    default: '*.yaml'
+    default: '.yaml'
   exclude:
     description: 'should be a substring of the folder path you want to exclude'
     required: false
