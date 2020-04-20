@@ -5,6 +5,8 @@ on:
       - 'dependabot/*'
   schedule:
     - cron: '22 22 * * 5'
+env:
+  IMAGE: ${{ github.repository }}
 
 jobs:
   lint:
@@ -36,9 +38,17 @@ jobs:
     - name: Run CI script
       run: ./tests/run.bats
 
-    - name: Run action
-      uses: ./
-      with:
-        path: "./tests/data/good_case_1"
-        file_extension: "*.yaml"
-        exclude: "skip"
+  deploy:
+    needs: test
+    if: github.ref == 'refs/heads/master'
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+
+    - name: Build,Tag,Push Docker image
+      run: |
+        echo "${{ secrets.DOCKERHUB_TOKEN }}" | docker login -u "${{ secrets.DOCKERHUB_USER }}" --password-stdin
+        # docker build
+        docker build -t ${IMAGE}:latest .
+        # docker push images
+        docker push ${IMAGE}
