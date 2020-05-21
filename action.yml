@@ -17,7 +17,7 @@ inputs:
     default: ''
 runs:
   using: 'docker'
-  image: 'Dockerfile'
+  image: 'docker://p1nkun1c0rns/prometheus-operator-lint-action:latest'
   args:
     - ${{ inputs.path }}
     - ${{ inputs.file_extension }}

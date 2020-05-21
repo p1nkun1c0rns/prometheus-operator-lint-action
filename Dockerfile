@@ -1,4 +1,4 @@
-FROM golang:alpine3.11
+FROM golang:alpine3.11 as builder
 
 LABEL name="prometheus-operator-lint-action"
 LABEL repository="http://github.com/p1nkun1c0rns/prometheus-operator-lint-action"
@@ -17,4 +17,9 @@ RUN apk add --no-cache \
 
 RUN go get -u github.com/coreos/prometheus-operator/cmd/po-lint@v${PO_LINT_VERSION}
 
+######## Start a new stage from scratch #######
+FROM alpine:3.11.5
+COPY entrypoint.sh /entrypoint.sh
+RUN chmod +x /entrypoint.sh
+COPY --from=builder /go/bin/po-lint /usr/local/bin/
 ENTRYPOINT [ "/entrypoint.sh" ]
