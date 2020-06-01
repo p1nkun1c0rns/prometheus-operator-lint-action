@@ -18,7 +18,7 @@ RUN apk add --no-cache \
 RUN go get -u github.com/coreos/prometheus-operator/cmd/po-lint@v${PO_LINT_VERSION}
 
 ######## Start a new stage from scratch #######
-FROM alpine:3.11.5
+FROM alpine:3.12.0
 COPY entrypoint.sh /entrypoint.sh
 RUN chmod +x /entrypoint.sh
 COPY --from=builder /go/bin/po-lint /usr/local/bin/
