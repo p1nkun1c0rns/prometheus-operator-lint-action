@@ -52,3 +52,8 @@ git clone https://github.com/p1nkun1c0rns/prometheus-operator-lint-action.git
 ## License
 
 The scripts and documentation in this project are released under the [MIT License](LICENSE)
+
+## TODOs
+
+- [ ] Move Linter to BATs tests
+- [ ] Make proper release
