@@ -1,0 +1,13 @@
+name: Auto merge
+on: pull_request
+
+jobs:
+  approve:
+    name: Auto-merge dependabot PRs
+    if: github.actor == 'dependabot[bot]' || github.actor == 'dependabot-preview[bot]'
+    runs-on: ubuntu-latest
+    steps:
+    - name: automerge
+      uses: "pascalgn/automerge-action@v0.8.4"
+      env:
+        GITHUB_TOKEN: "${{ secrets.GITHUB_TOKEN }}"

@@ -4,7 +4,7 @@ author: 'Richard Steinbrueck'
 description: 'Run po-lint on your yaml files'
 inputs:
   path:
-    description: 'Path to files within the repo (and nested directories)'
+    description: 'Path to files within the repo (and nested directories), it is also possible to add multiple paths separated by a comma'
     required: false
     default: './'
   file_extension:
@@ -17,11 +17,7 @@ inputs:
     default: ''
 runs:
   using: 'docker'
-  image: 'docker://p1nkun1c0rns/prometheus-operator-lint-action:latest'
-  args:
-    - ${{ inputs.path }}
-    - ${{ inputs.file_extension }}
-    - ${{ inputs.exclude }}
+  image: 'src/Dockerfile'
 branding:
   icon: 'terminal'
   color: 'red'
