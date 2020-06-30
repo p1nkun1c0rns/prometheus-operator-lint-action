@@ -36,8 +36,7 @@ jobs:
 
       - name: Tag and push Docker image
         run: |
-          DOCKERHUB_USERNAME=`echo "${IMAGE}" | awk -F"/" '{print $1}'`
-          echo "${{ secrets.DOCKERHUB_TOKEN }}" | docker login -u $DOCKERHUB_USERNAME --password-stdin
+          echo "${{ secrets.DOCKERHUB_TOKEN }}" | docker login -u ${{ secrets.DOCKERHUB_USER }} --password-stdin
           # docker build
           docker build -t ${IMAGE}:${{ steps.dump-version.outputs.new_tag }} . -f src/Dockerfile
           # docker push images

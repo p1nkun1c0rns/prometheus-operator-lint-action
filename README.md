@@ -26,7 +26,7 @@ See [action.yml](action.yml)
 
 ```yml
 steps:
-- uses: docker://p1nkun1c0rns/prometheus-operator-lint-action:v1.0.0
+- uses: docker://p1nkun1c0rns/prometheus-operator-lint-action:v2.0.3
   env:
     INPUT_PATH: "./"
     INPUT_FILES: ".yaml"
@@ -37,7 +37,7 @@ steps:
 
 ```yml
 steps:
-- uses: docker://p1nkun1c0rns/prometheus-operator-lint-action:v1.0.0
+- uses: docker://p1nkun1c0rns/prometheus-operator-lint-action:v2.0.3
   env:
     INPUT_PATH: "./DEV/monitoring,./TEST/monitoring,./PROD/monitoring"
     INPUT_FILES: "*.yaml"
@@ -57,4 +57,11 @@ git clone https://github.com/p1nkun1c0rns/prometheus-operator-lint-action.git
 
 The scripts and documentation in this project are released under the [MIT License](LICENSE)
 
-## TODOs
+## Release
+
+- create new branch
+- make your changes, if needed
+- commit your changes like
+  - Patch Release: `fix(script): validate input file to prevent empty files`
+  - Minor Release: `feat(dockerimage): add open for multiple input files`
+  - Major Release [look her](https://github.com/mathieudutour/github-tag-action/blob/master/README.md)
