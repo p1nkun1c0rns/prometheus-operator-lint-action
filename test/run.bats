@@ -27,6 +27,15 @@ function debug() {
   fi
 }
 
+function start_container() {
+  run docker run --rm \
+  -v "$(pwd)/test/data:/mnt/" \
+  -e INPUT_PATH=$INPUT_PATH \
+  -e INPUT_FILES=$INPUT_FILES \
+  -e INPUT_EXCLUDE=$INPUT_EXCLUDE \
+  -i $CONTAINER_NAME
+}
+
 ###############################################################################
 ## test cases #################################################################
 ###############################################################################
@@ -34,8 +43,9 @@ function debug() {
 ## linter #####################################################################
 ###############################################################################
 
-# TODO: Add shellcheck test
-# docker run --rm -v `pwd`:/shellcheck wpengine/shellcheck /shellcheck/script1.sh /shellcheck/script2.sh
+# TODO: Add Superlinter
+# https://github.com/github/super-linter/blob/master/docs/run-linter-locally.md
+# docker run -e RUN_LOCAL=true -v $(pwd):/tmp/lint/file github/super-linter
 
 @test "start hadolint" {
   docker run --rm -i hadolint/hadolint:$HADOLINT_VERSION < src/Dockerfile
@@ -83,10 +93,7 @@ function debug() {
   INPUT_FILES=".yaml"
   INPUT_EXCLUDE="skip"
 
-  run docker run --rm \
-  -v "$(pwd)/test/data:/mnt/" \
-  -i $CONTAINER_NAME \
-  $INPUT_PATH $INPUT_FILES $INPUT_EXCLUDE
+  start_container
 
   debug "${status}" "${output}" "${lines}"
 
@@ -98,10 +105,7 @@ function debug() {
   INPUT_FILES=".yaml"
   INPUT_EXCLUDE="skip"
 
-  run docker run --rm \
-  -v "$(pwd)/test/data:/mnt/" \
-  -i $CONTAINER_NAME \
-  $INPUT_PATH $INPUT_FILES $INPUT_EXCLUDE
+  start_container
 
   debug "${status}" "${output}" "${lines}"
 
@@ -115,10 +119,7 @@ function debug() {
   INPUT_FILES=".yaml"
   INPUT_EXCLUDE="skip"
 
-  run docker run --rm \
-  -v "$(pwd)/test/data:/mnt/" \
-  -i $CONTAINER_NAME \
-  $INPUT_PATH $INPUT_FILES $INPUT_EXCLUDE
+  start_container
 
   debug "${status}" "${output}" "${lines}"
 
@@ -134,11 +135,8 @@ function debug() {
 @test "INPUT_FILES: lint .yml" {
   INPUT_PATH="/mnt/good_case_2"
   INPUT_FILES=".yml"
-
-  run docker run --rm \
-  -v "$(pwd)/test/data:/mnt/" \
-  -i $CONTAINER_NAME \
-  $INPUT_PATH $INPUT_FILES
+  
+  start_container
 
   echo "${status}" "${output}" "${lines}"
 
@@ -157,10 +155,7 @@ function debug() {
   INPUT_FILES=".yaml"
   INPUT_EXCLUDE="skip"
 
-  run docker run --rm \
-  -v "$(pwd)/test/data:/mnt/" \
-  -i $CONTAINER_NAME \
-  $INPUT_PATH $INPUT_FILES $INPUT_EXCLUDE
+  start_container
 
   debug "${status}" "${output}" "${lines}"
 
@@ -172,10 +167,7 @@ function debug() {
   INPUT_PATH="/mnt/good_case_1"
   INPUT_FILES=".yaml"
 
-  run docker run --rm \
-  -v "$(pwd)/test/data:/mnt/" \
-  -i $CONTAINER_NAME \
-  $INPUT_PATH $INPUT_FILES $INPUT_EXCLUDE
+  start_container
 
   debug "${status}" "${output}" "${lines}"
 
@@ -192,10 +184,7 @@ function debug() {
   INPUT_PATH="/foo/bar"
   INPUT_FILES=".yaml"
 
-  run docker run --rm \
-  -v "$(pwd)/test/data:/mnt/" \
-  -i $CONTAINER_NAME \
-  $INPUT_PATH $INPUT_FILES $INPUT_EXCLUDE
+  start_container
 
   debug "${status}" "${output}" "${lines}"
 
@@ -206,10 +195,7 @@ function debug() {
 @test "INPUT_PATH: not defined" {
   INPUT_PATH=""
 
-  run docker run --rm \
-  -v "$(pwd)/test/data:/mnt/" \
-  -i $CONTAINER_NAME \
-  $INPUT_PATH
+  start_container
 
   debug "${status}" "${output}" "${lines}"
 
@@ -222,10 +208,7 @@ function debug() {
   INPUT_FILES=".yml"
   INPUT_EXCLUDE="skip"
 
-  run docker run --rm \
-  -v "$(pwd)/test/data:/mnt/" \
-  -i $CONTAINER_NAME \
-  $INPUT_PATH $INPUT_FILES $INPUT_EXCLUDE
+  start_container
 
   debug "${status}" "${output}" "${lines}"
 

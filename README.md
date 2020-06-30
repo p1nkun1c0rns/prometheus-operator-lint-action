@@ -22,35 +22,26 @@ or use automatic tools like [Dependabot](https://dependabot.com/).
 
 See [action.yml](action.yml)
 
-### Simple
+### One Path
 
 ```yml
 steps:
-- uses: p1nkun1c0rns/prometheus-operator-lint-action@master
+- uses: docker://p1nkun1c0rns/prometheus-operator-lint-action:v1.0.0
+  env:
+    INPUT_PATH: "./"
+    INPUT_FILES: ".yaml"
+    INPUT_EXCLUDE: "skip"
 ```
 
-### Advanced
-
-#### One Path
+### Multiple Paths
 
 ```yml
 steps:
-- uses: p1nkun1c0rns/prometheus-operator-lint-action@master
-  with:
-    path: "./"
-    file_extension: "*.yaml"
-    exclude: "foobar"
-```
-
-#### Multiple Paths
-
-```yml
-steps:
-- uses: p1nkun1c0rns/prometheus-operator-lint-action@master
-  with:
-    path: "./DEV/monitoring,./TEST/monitoring,./PROD/monitoring"
-    file_extension: "*.yaml"
-    exclude: "foobar"
+- uses: docker://p1nkun1c0rns/prometheus-operator-lint-action:v1.0.0
+  env:
+    INPUT_PATH: "./DEV/monitoring,./TEST/monitoring,./PROD/monitoring"
+    INPUT_FILES: "*.yaml"
+    INPUT_EXCLUDE: "foobar"
 ```
 
 ## Testing
@@ -67,6 +58,3 @@ git clone https://github.com/p1nkun1c0rns/prometheus-operator-lint-action.git
 The scripts and documentation in this project are released under the [MIT License](LICENSE)
 
 ## TODOs
-
-- [ ] Move Linter to BATs tests
-- [ ] Make proper release

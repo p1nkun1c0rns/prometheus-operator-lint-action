@@ -1,8 +1,5 @@
 #!/bin/sh
 
-INPUT_PATH=$1
-INPUT_FILES=$2
-INPUT_EXCLUDE=$3
 HAD_ERRORS=0
 
 function lint() {
