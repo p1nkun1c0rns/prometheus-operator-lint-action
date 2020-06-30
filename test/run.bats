@@ -34,6 +34,9 @@ function debug() {
 ## linter #####################################################################
 ###############################################################################
 
+# TODO: Add shellcheck test
+# docker run --rm -v `pwd`:/shellcheck wpengine/shellcheck /shellcheck/script1.sh /shellcheck/script2.sh
+
 @test "start hadolint" {
   docker run --rm -i hadolint/hadolint:$HADOLINT_VERSION < src/Dockerfile
   debug "${status}" "${output}" "${lines}"
@@ -102,7 +105,7 @@ function debug() {
 
   debug "${status}" "${output}" "${lines}"
 
-  [[ "${status}" -eq 1 ]]
+  [[ "${status}" -gt 0 ]]
 }
 
 ## INPUT_FILES ################################################################
@@ -212,4 +215,21 @@ function debug() {
 
   echo $output | grep -q "ERROR: input variable 'path' is not set"
   [[ "${status}" -eq 1 ]]
+}
+
+@test "INPUT_PATH: split by comma" {
+  INPUT_PATH="/mnt/good_case_2,/mnt/good_case_3"
+  INPUT_FILES=".yml"
+  INPUT_EXCLUDE="skip"
+
+  run docker run --rm \
+  -v "$(pwd)/test/data:/mnt/" \
+  -i $CONTAINER_NAME \
+  $INPUT_PATH $INPUT_FILES $INPUT_EXCLUDE
+
+  debug "${status}" "${output}" "${lines}"
+
+  echo $output | grep -q "lint /mnt/good_case_2/rules.yml"
+  echo $output | grep -q "lint /mnt/good_case_3/rules.yml"
+  [[ "${status}" -eq 0 ]]
 }

@@ -4,7 +4,7 @@ author: 'Richard Steinbrueck'
 description: 'Run po-lint on your yaml files'
 inputs:
   path:
-    description: 'Path to files within the repo (and nested directories)'
+    description: 'Path to files within the repo (and nested directories), it is also possible to add multiple paths separated by a comma'
     required: false
     default: './'
   file_extension:

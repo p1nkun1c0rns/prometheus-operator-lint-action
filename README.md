@@ -31,11 +31,24 @@ steps:
 
 ### Advanced
 
+#### One Path
+
 ```yml
 steps:
 - uses: p1nkun1c0rns/prometheus-operator-lint-action@master
   with:
     path: "./"
+    file_extension: "*.yaml"
+    exclude: "foobar"
+```
+
+#### Multiple Paths
+
+```yml
+steps:
+- uses: p1nkun1c0rns/prometheus-operator-lint-action@master
+  with:
+    path: "./DEV/monitoring,./TEST/monitoring,./PROD/monitoring"
     file_extension: "*.yaml"
     exclude: "foobar"
 ```
